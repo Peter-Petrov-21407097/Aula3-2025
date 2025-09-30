@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
     msg_t msg = {
         .pid = pid,
         .request = PROCESS_REQUEST_RUN,
-        .time_ms = time_s * 1000
+        .time_ms = time_s * 500
     };
     if (write(sockfd, &msg, sizeof(msg_t)) != sizeof(msg_t)) {
         perror("write");
