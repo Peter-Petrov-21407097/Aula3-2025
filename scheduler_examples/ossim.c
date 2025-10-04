@@ -316,6 +316,10 @@ int main(int argc, char *argv[]) {
             case SCHED_SJF:
                 sjf_scheluder(current_time_ms, &ready_queue, &CPU);
                 break;
+            case SCHED_MLFQ:
+                mlfq_scheduler(current_time_ms, &ready_queue, &CPU);
+                break;
+
             default:
                 printf("Este tipo de scheduler e desconhecido\n");
                 break;
