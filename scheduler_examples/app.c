@@ -62,9 +62,9 @@ int main(int argc, char *argv[]) {
     // Send RUN request
     pid_t pid = getpid();
     msg_t msg = {
-        .pid = pid,
-        .request = PROCESS_REQUEST_RUN,
-        .time_ms = time_s * 500
+            .pid = pid,
+            .request = PROCESS_REQUEST_RUN,
+            .time_ms = time_s * 1000
     };
     if (write(sockfd, &msg, sizeof(msg_t)) != sizeof(msg_t)) {
         perror("write");
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
     DBG("Application %s (PID %d) sent RUN request for %d ms",
-           app_name, pid, msg.time_ms);
+        app_name, pid, msg.time_ms);
     // Wait for ACK and the internal simulation time
     if (read(sockfd, &msg, sizeof(msg_t)) != sizeof(msg_t)) {
         perror("read");

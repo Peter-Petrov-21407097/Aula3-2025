@@ -7,9 +7,9 @@
 #include <unistd.h>
 
 /**
- * @brief First-In-First-Out (FIFO) scheduling algorithm.
+ * @brief MultiLevel Feedback Queue Schedeluing (FIFO) scheduling algorithm.
  *
- * This function implements the FIFO scheduling algorithm. If the CPU is not idle it
+ * This function implements the MFQS. If the CPU is not idle it
  * checks if the application is ready and frees the CPU.
  * If the CPU is idle, it selects the next task to run based on the order they were added
  * to the ready queue. The task that has been in the queue the longest is selected to run next.

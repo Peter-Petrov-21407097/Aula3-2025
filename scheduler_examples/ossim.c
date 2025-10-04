@@ -326,7 +326,7 @@ int main(int argc, char *argv[]) {
         }
 
         // Simulate a tick
-        usleep(TICKS_MS * 1000/2);
+        usleep(TICKS_MS * 500);
         current_time_ms += TICKS_MS;
     }
 
