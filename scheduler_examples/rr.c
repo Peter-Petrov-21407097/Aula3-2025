@@ -1,0 +1,40 @@
+#include "rr.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "msg.h"
+#include <unistd.h>
+
+/**
+ * @brief Algorito Round robinR algorithm.
+ *
+ * This function implements the Round robin algorithm.
+
+ * @param current_time_ms The current time in milliseconds.
+ * @param rq Pointer to the ready queue containing tasks that are ready to run.
+ * @param cpu_task Double pointer to the currently running task. This will be updated
+ *                 to point to the next task to run.
+ */
+void rr_scheduler(uint32_t current_time_ms, queue_t *rq, pcb_t **cpu_task) {
+    if (*cpu_task) {
+        (*cpu_task)->ellapsed_time_ms += TICKS_MS;      // Add to the running time of the application/task
+        if ((*cpu_task)->ellapsed_time_ms >= (*cpu_task)->time_ms) {
+            // Task finished
+            // Send msg to application
+            msg_t msg = {
+                    .pid = (*cpu_task)->pid,
+                    .request = PROCESS_REQUEST_DONE,
+                    .time_ms = current_time_ms
+            };
+            if (write((*cpu_task)->sockfd, &msg, sizeof(msg_t)) != sizeof(msg_t)) {
+                perror("write");
+            }
+
+
+        }
+    }
+    if (*cpu_task == NULL) {            // If CPU is idle
+        *cpu_task = dequeue_pcb(rq);   // Get next task from ready queue (dequeue from head)
+    }
+}
